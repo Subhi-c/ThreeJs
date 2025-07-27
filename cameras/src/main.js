@@ -19,7 +19,13 @@ scene.add(cubeMesh);
 // console.log(scene)
 
 //Initialize camera
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / innerHeight , 0.1,30);
+const camera = new THREE.PerspectiveCamera
+  (
+    75,  //field of view - smaller the angle smaller the view. greater the angle larger the view
+    window.innerWidth / innerHeight ,
+    0.00000000001, // Near 
+    2000  //far - How far the camera should show the object
+  );
 
 //position of camera
 camera.position.z = 5;
@@ -33,5 +39,5 @@ const canvas = document.querySelector('canvas.threejs')
 const renderer = new THREE.WebGLRenderer({
   canvas: canvas
 })
-
+renderer.setSize(window.innerWidth , window.innerHeight)  //Setting size for the renderer
 renderer.render(scene, camera)
