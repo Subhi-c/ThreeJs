@@ -1,5 +1,7 @@
 import * as THREE from 'three';
+import { OrbitControls  } from 'three/examples/jsm/Addons.js';
 
+console.log(OrbitControls);
 //creates a scene
 const scene = new THREE.Scene();
 
@@ -40,4 +42,14 @@ const renderer = new THREE.WebGLRenderer({
   canvas: canvas
 })
 renderer.setSize(window.innerWidth , window.innerHeight)  //Setting size for the renderer
-renderer.render(scene, camera)
+//Instantiate the controls
+const controls = new OrbitControls(camera, canvas)
+controls.enableDamping = true
+controls.autoRotate = true
+const renderLoop = () => {
+  controls.update()
+  renderer.render(scene, camera)  //We are making a change and taking a snap.
+  window.requestAnimationFrame(renderLoop)  // requestAnimationFrame - Function takes another function, right before you hit another frame call the this method.- we re-render the scene from the camera’s perspective on every frame
+};
+
+renderLoop()
