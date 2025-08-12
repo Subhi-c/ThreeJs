@@ -29,6 +29,18 @@ const camera = new THREE.PerspectiveCamera
     2000  //far - How far the camera should show the object
   );
 
+// const aspectRatio = window.innerWidth / window.innerHeight;
+
+// const camera = new THREE.OrthographicCamera
+// (
+//   -1 * aspectRatio,
+//   1 * aspectRatio,
+//   -1,
+//   1,
+//   .1,
+//   200
+// )
+
 //position of camera
 camera.position.z = 5;
 
@@ -41,12 +53,13 @@ const canvas = document.querySelector('canvas.threejs')
 const renderer = new THREE.WebGLRenderer({
   canvas: canvas
 })
-renderer.setSize(window.innerWidth , window.innerHeight)  //Setting size for the renderer
+
 //Instantiate the controls
 const controls = new OrbitControls(camera, canvas)
 controls.enableDamping = true
 controls.autoRotate = true
 const renderLoop = () => {
+  renderer.setSize(window.innerWidth , window.innerHeight)  //Setting size for the renderer
   controls.update()
   renderer.render(scene, camera)  //We are making a change and taking a snap.
   window.requestAnimationFrame(renderLoop)  // requestAnimationFrame - Function takes another function, right before you hit another frame call the this method.- we re-render the scene from the camera’s perspective on every frame
