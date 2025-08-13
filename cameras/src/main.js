@@ -23,10 +23,10 @@ scene.add(cubeMesh);
 //Initialize camera
 const camera = new THREE.PerspectiveCamera
   (
-    75,  //field of view - smaller the angle smaller the view. greater the angle larger the view
+    35,  //field of view - smaller the angle smaller the view. greater the angle larger the view
     window.innerWidth / innerHeight ,
-    0.00000000001, // Near 
-    2000  //far - How far the camera should show the object
+    0.1, // Near 
+    200  //far - How far the camera should show the object
   );
 
 // const aspectRatio = window.innerWidth / window.innerHeight;
@@ -59,6 +59,9 @@ const controls = new OrbitControls(camera, canvas)
 controls.enableDamping = true
 controls.autoRotate = true
 const renderLoop = () => {
+  camera.aspect = window.innerWidth / window.innerHeight
+  camera.updateProjectionMatrix()  //Needs to call after changing parameters.
+
   renderer.setSize(window.innerWidth , window.innerHeight)  //Setting size for the renderer
   controls.update()
   renderer.render(scene, camera)  //We are making a change and taking a snap.
