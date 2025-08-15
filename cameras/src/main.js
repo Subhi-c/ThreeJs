@@ -51,13 +51,15 @@ scene.add(camera)
 const canvas = document.querySelector('canvas.threejs')
 // console.log(canvas)
 const renderer = new THREE.WebGLRenderer({
-  canvas: canvas
+  canvas: canvas,
+  antialias : true ,  //To avoid the antialising of corners.
 })
-
+const maxPixelRatio = Math.min(window.devicePixelRatio, 2)
+renderer.setPixelRatio(maxPixelRatio)
 //Instantiate the controls
-const controls = new OrbitControls(camera, canvas)
+const controls = new OrbitControls(camera, canvas)  //We can click and drag the view.
 controls.enableDamping = true
-controls.autoRotate = true
+// controls.autoRotate = true
 const renderLoop = () => {
   camera.aspect = window.innerWidth / window.innerHeight
   camera.updateProjectionMatrix()  //Needs to call after changing parameters.
@@ -69,3 +71,9 @@ const renderLoop = () => {
 };
 
 renderLoop()
+
+window.addEventListener('resize' , () => {
+  camera.aspect = window.innerWidth / window.innerHeight
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight)
+})
