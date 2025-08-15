@@ -1,0 +1,3 @@
+Official documentation - https://threejs.org/
+Quaternion - oject's local rotation (complex)
+.Rotation - Euler angler
